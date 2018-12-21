@@ -12,7 +12,26 @@ namespace dotnetCoreMVC.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            List<Mails> mails = new List<Mails>();
+            string smg = "";
+            for (int i = 0; i < 10; i++)
+            {
+                smg = "Wiadomosc nr : " + i.ToString();
+                mails.Add(new Mails() {mailId=i, message=smg});
+            }
+
+            List<Person> persons = new List<Person>();
+            for (int i = 0; i < 20; i++)
+            {
+                smg = i.ToString();
+                persons.Add(new Person() {name = "Osoba nr " + smg,surname = "Nazwisko nr" + smg, personId = i});
+            }
+
+            List<ReturnList> res = new List<ReturnList>();
+            res.Add(new ReturnList {emailList = mails, personList = persons});
+            
+            //return View(result);
+            return View(res);
         }
 
         public IActionResult Privacy()

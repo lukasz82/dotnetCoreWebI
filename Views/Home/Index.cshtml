@@ -1,4 +1,7 @@
-﻿@{
+﻿@using dotnetCoreMVC
+@model List<ReturnList>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -6,5 +9,28 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
     <p>Moja pierwsza strona w dot net CORE !!!</p>
-    <p>Utworzona za pomocą VS Code i konsoli windows ;)</p>
+    <p>Utworzona za pomocą VS Code i konsoli windows ;) </p>
+    <p>Poniżej wylistowane dane z przykładowego modelu: </p>
+    @foreach (var item in Model)
+    {
+        @foreach (var emails in item.emailList)
+        {
+            <div>
+                Email @emails.mailId &nbsp&nbsp
+                Wiadomosc @emails.message &nbsp&nbsp
+                <br>
+            </div>
+        }
+        <p></p>
+        @foreach (var persons in item.personList)
+        {
+            <div>
+                Imię @persons.name &nbsp&nbsp
+                Nazwisko @persons.surname &nbsp&nbsp
+                Id osoby @persons.personId &nbsp&nbsp
+                <br>
+            </div>
+        }
+    }
+
 </div>
