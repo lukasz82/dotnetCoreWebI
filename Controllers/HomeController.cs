@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using dotnetCoreMVC.Models;
 
+using Microsoft.EntityFrameworkCore;
+
 namespace dotnetCoreMVC.Controllers
 {
     public class HomeController : Controller
@@ -29,11 +31,20 @@ namespace dotnetCoreMVC.Controllers
 
             EFCoreWebDemoContext context = new EFCoreWebDemoContext();
             var db = context.Authors.ToList();
+            
+            var query = (from a in context.Authors 
+                        join b in context.Books on a.AuthorId equals b.AuthorId
+                        select new BooksAndAuthors
+                        {
+                            FirstName = a.FirstName,
+                            LastName = a.LastName, 
+                            AuthorId = a.AuthorId,
+                            Title = b.Title
+                        }).ToList();
 
             List<ReturnList> res = new List<ReturnList>();
-            res.Add(new ReturnList {emailList = mails, personList = persons, authors = db});
+            res.Add(new ReturnList {emailList = mails, personList = persons, authors = db, booksAndAuthors = query});
 
-            //return View(result);
             return View(res);
         }
 

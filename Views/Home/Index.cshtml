@@ -43,6 +43,17 @@
                 <br>
             </div>
         }
+                <p></p>
+        @foreach (var list in item.booksAndAuthors)
+        {
+            <div>
+                Id @list.AuthorId &nbsp&nbsp
+                Imię @list.FirstName &nbsp&nbsp
+                Nazwisko @list.LastName &nbsp&nbsp
+                Wydana książka @list.Title &nbsp&nbsp
+                <br>
+            </div>
+        }
     }
 
 </div>
