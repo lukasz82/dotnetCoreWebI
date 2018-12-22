@@ -27,9 +27,12 @@ namespace dotnetCoreMVC.Controllers
                 persons.Add(new Person() {name = "Osoba nr " + smg,surname = "Nazwisko nr" + smg, personId = i});
             }
 
+            EFCoreWebDemoContext context = new EFCoreWebDemoContext();
+            var db = context.Authors.ToList();
+
             List<ReturnList> res = new List<ReturnList>();
-            res.Add(new ReturnList {emailList = mails, personList = persons});
-            
+            res.Add(new ReturnList {emailList = mails, personList = persons, authors = db});
+
             //return View(result);
             return View(res);
         }

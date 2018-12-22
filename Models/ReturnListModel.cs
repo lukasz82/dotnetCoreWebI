@@ -3,7 +3,8 @@ namespace dotnetCoreMVC.Models
 {
     public class ReturnList
     {
-        public List<Mails> emailList { set;get;}
-        public List<Person> personList { set;get;}
+        public List<Mails> emailList {set; get;}
+        public List<Person> personList {set; get;}
+        public List<Author> authors {set; get;}
     }
 }
