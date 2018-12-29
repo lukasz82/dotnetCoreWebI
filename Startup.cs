@@ -59,6 +59,13 @@ namespace dotnetCoreMVC
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute("default", "Author/Show/{id}",
+                    new { controller = "Authors", action = "Show" });
+            });
+
         }
     }
 }

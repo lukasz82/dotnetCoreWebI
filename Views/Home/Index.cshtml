@@ -11,6 +11,9 @@
     <p>Moja pierwsza strona w dot net CORE !!!</p>
     <p>Utworzona za pomocą VS Code i konsoli windows ;) </p>
     <p>Poniżej wylistowane dane z przykładowego modelu: </p>
+    <br />
+    <a href="/Author/Show/1">Pokaz ksiazki i autorów</a>
+    <br />
     @foreach (var item in Model)
     {
         @foreach (var emails in item.emailList)
@@ -44,7 +47,7 @@
             </div>
         }
                 <p></p>
-        @foreach (var list in item.booksAndAuthors)
+        @foreach (var list in item.ViewModelAll)
         {
             <div>
                 Id @list.AuthorId &nbsp&nbsp

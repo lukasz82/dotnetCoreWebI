@@ -7,6 +7,6 @@ namespace dotnetCoreMVC.Models
         public List<Person> personList {set; get;}
         public List<Author> authors {set; get;}
         public List<Book> books {set; get;}
-        public List<BooksAndAuthors> booksAndAuthors{set;get;}
+        public List<ViewModelAll> ViewModelAll{set;get;}
     }
 }

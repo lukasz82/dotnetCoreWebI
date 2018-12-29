@@ -34,7 +34,8 @@ namespace dotnetCoreMVC.Controllers
             
             var query = (from a in context.Authors 
                         join b in context.Books on a.AuthorId equals b.AuthorId
-                        select new BooksAndAuthors
+                        where a.AuthorId == 1
+                        select new ViewModelAll
                         {
                             FirstName = a.FirstName,
                             LastName = a.LastName, 
@@ -43,7 +44,7 @@ namespace dotnetCoreMVC.Controllers
                         }).ToList();
 
             List<ReturnList> res = new List<ReturnList>();
-            res.Add(new ReturnList {emailList = mails, personList = persons, authors = db, booksAndAuthors = query});
+            res.Add(new ReturnList {emailList = mails, personList = persons, authors = db, ViewModelAll = query});
 
             return View(res);
         }
