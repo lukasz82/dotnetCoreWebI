@@ -1,24 +1,32 @@
 @using dotnetCoreMVC
+@model IEnumerable<AuthorsBooksViewModel>
 
-<a href="/Author/Show/1">Autor id: 1</a>
-<a href="/Author/Show/2">Autor id: 2</a>
-<a href="/Author/Show/3">Autor id: 3</a>
-<a href="/Author/Show/4">Autor id: 4</a>
-<a href="/Author/Show/5">Autor id: 5</a>
-<a href="/Author/Show/6">Autor id: 6</a>
-<a href="/Author/Show/7">Autor id: 7</a>
-<br />
-<div>
-@ViewBag.wynik;
-<br /><br />
-@foreach (var item in ViewBag.wynik)
+@foreach (var authors in ViewBag.Authors)
 {
-    <div>
-    @for (int i = 0; i < item.Length; i++)
-    {
-        @item[i]; 
-    }
-    </div>
+    <a href="/Author/Show/@authors.AuthorId"> @authors.FirstName @authors.LastName</a>
+}    
+
+<form asp-controller="Books" asp-action="Add" method="post">
+    <label for="title">Wpisz nazwe ksiazki</label>
+    <input type="text" class="form-control" name="title"><br>
+    <input type="hidden" class="form-control" name="actualAuthorId" value=@ViewBag.actualAuthorId ><br>
+    <button type="submit" class="btn btn-default">Dodaj nową pozycję</button>
+</form>
+
+<br /><br />
+<div>
+@{
+    var item2 = ViewBag.wynik;
+    var list = ViewData["wynik2"].GetType();
 }
 
+@foreach(var item in Model)
+{
+    <p>
+    @item.Authors.FirstName
+    @item.Authors.LastName
+    @item.Books.Title
+    <br />
+    </p>
+}
 </div>

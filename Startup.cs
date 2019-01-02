@@ -66,6 +66,12 @@ namespace dotnetCoreMVC
                     new { controller = "Authors", action = "Show" });
             });
 
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute("default", "Books/Add/",
+                    new { controller = "Books", action = "Add" });
+            });
+
         }
     }
 }
