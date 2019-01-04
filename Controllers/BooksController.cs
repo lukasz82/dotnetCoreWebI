@@ -71,12 +71,8 @@ namespace dotnetCoreMVC.Controllers
 
         public ActionResult Edit(int id)
         {
-            var query = context.Books
-            .Where(b => b.BookId == id)
-            .Select(b => new Book() { BookId = b.BookId, Title = b.Title, AuthorId = b.AuthorId })
-            .FirstOrDefault();
 
-            var query2 = (from b in context.Books
+            var query = (from b in context.Books
             join a in context.Authors on b.AuthorId equals a.AuthorId
             where b.BookId == id
             select new AuthorsBooksViewModel() 
@@ -89,7 +85,7 @@ namespace dotnetCoreMVC.Controllers
             var allAuthors = (from a in context.Authors select new Author {AuthorId = a.AuthorId, FirstName = a.FirstName, LastName = a.LastName }).ToArray();
             ViewBag.Authors = allAuthors;
 
-            return View(query2);
+            return View(query);
         }
 
     }
