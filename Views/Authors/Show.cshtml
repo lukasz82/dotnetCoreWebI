@@ -1,32 +1,59 @@
 @using dotnetCoreMVC
 @model IEnumerable<AuthorsBooksViewModel>
 
-@foreach (var authors in ViewBag.Authors)
-{
-    <a href="/Author/Show/@authors.AuthorId"> @authors.FirstName @authors.LastName</a>
-}    
+@{
+    // to jest tylko tymczasowo do testów
+    var item2 = ViewBag.wynik;
+    var list = ViewData["wynik2"];
+
+    if (ViewBag.result != null)
+    {
+        <div>@ViewBag.result</div>
+    }
+}
+<div class="table-responsive-sm">
+    <table class="table table-bordered">
+        <tr>
+        @foreach (var authors in ViewBag.Authors)
+        {
+            <td>
+                <a href="/Author/Show/@authors.AuthorId"> @authors.FirstName @authors.LastName</a>
+            </td>
+        } 
+        </tr>   
+    </table>
+</div>
 
 <form asp-controller="Books" asp-action="Add" method="post">
     <label for="title">Wpisz nazwe ksiazki</label>
-    <input type="text" class="form-control" name="title"><br>
+    <input type="text" class="form-control" name="title" required><br>
     <input type="hidden" class="form-control" name="actualAuthorId" value=@ViewBag.actualAuthorId ><br>
     <button type="submit" class="btn btn-default">Dodaj nową pozycję</button>
 </form>
 
 <br /><br />
-<div>
-@{
-    var item2 = ViewBag.wynik;
-    var list = ViewData["wynik2"].GetType();
-}
 
-@foreach(var item in Model)
-{
-    <p>
-    @item.Authors.FirstName
-    @item.Authors.LastName
-    @item.Books.Title
-    <br />
-    </p>
-}
+<div class="table-responsive-sm">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Autor</th>
+                <th scope="col">Tytuł książki</th>
+                <th scope="col" colspan="2">Opcje</th>
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td> @item.Authors.FirstName @item.Authors.LastName </td>
+                <td> @item.Books.Title </td>
+                <td> 
+                    <a href="/Books/Delete/@item.Books.BookId/@item.Authors.AuthorId"> Usuń </a>
+                </td>
+                <td>
+                    <a href="/Books/Edit/@item.Books.BookId"> Edytuj </a>
+                </td>
+            </tr> 
+        } 
+    </table>
 </div>

@@ -14,49 +14,4 @@
     <br />
     <a href="/Author/Show/1">Pokaz ksiazki i autorów</a>
     <br />
-    @foreach (var item in Model)
-    {
-        @foreach (var emails in item.emailList)
-        {
-            <div>
-                Email @emails.mailId &nbsp&nbsp
-                Wiadomosc @emails.message &nbsp&nbsp
-                <br>
-            </div>
-        }
-
-        <p></p>
-        @foreach (var persons in item.personList)
-        {
-            <div>
-                Imię @persons.name &nbsp&nbsp
-                Nazwisko @persons.surname &nbsp&nbsp
-                Id osoby @persons.personId &nbsp&nbsp
-                <br>
-            </div>
-        }
-
-        <p></p>
-        @foreach (var authors in item.authors)
-        {
-            <div>
-                Id @authors.AuthorId &nbsp&nbsp
-                Imię @authors.FirstName &nbsp&nbsp
-                Nazwisko @authors.LastName &nbsp&nbsp
-                <br>
-            </div>
-        }
-                <p></p>
-        @foreach (var list in item.ViewModelAll)
-        {
-            <div>
-                Id @list.AuthorId &nbsp&nbsp
-                Imię @list.FirstName &nbsp&nbsp
-                Nazwisko @list.LastName &nbsp&nbsp
-                Wydana książka @list.Title &nbsp&nbsp
-                <br>
-            </div>
-        }
-    }
-
 </div>

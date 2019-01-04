@@ -22,6 +22,7 @@ namespace dotnetCoreMVC.Controllers
             var query = (from a in context.Authors
             join b in context.Books on a.AuthorId equals b.AuthorId
             where a.AuthorId == id
+            orderby b.Title
             select new AuthorsBooksViewModel() 
             { 
                 Authors = a, 
@@ -32,16 +33,15 @@ namespace dotnetCoreMVC.Controllers
             ViewBag.Authors = allAuthors;
             ViewBag.actualAuthorId = id;
 
-            var query3 = from a in context.Authors
-            join b in context.Books on a.AuthorId equals b.AuthorId
-            where a.AuthorId == id
-            select new { AuthorId = a.AuthorId.ToString(), FirstName = a.FirstName, LastName = a.LastName, Title = b.Title };
-            var listToReturn = query3;
+            // var query3 = from a in context.Authors
+            // join b in context.Books on a.AuthorId equals b.AuthorId
+            // where a.AuthorId == id
+            // select new {AuthorId = a.AuthorId.ToString(), FirstName = a.FirstName, LastName = a.LastName, Title = b.Title };
+            // var listToReturn = query3;
 
             // to jest tylko dla testów
-            ViewData["wynik2"] = listToReturn;
-            ViewBag.wynik = listToReturn;
-           // ViewBag.yyy = allAuthors;
+            // ViewData["wynik2"] = listToReturn;
+            // ViewBag.wynik = listToReturn;
             
             return View(query);
         }

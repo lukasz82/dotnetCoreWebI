@@ -18,22 +18,78 @@ namespace dotnetCoreMVC.Controllers
         EFCoreWebDemoContext context = new EFCoreWebDemoContext();
 
         [HttpPost]
-        public string Add (string title, int actualAuthorId)
+        public ActionResult Add(string title, int actualAuthorId)
         {
-            string result = title + " " + actualAuthorId;
             var books = context.Set<Book>();
-            books.Add(new Book{Title = title, AuthorId = actualAuthorId });
+            books.Add(new Book { Title = title, AuthorId = actualAuthorId });
+
+            try
+            {
+                ViewBag.result = title + " " + actualAuthorId;
+                context.SaveChanges();
+                return RedirectToAction("Show", "Authors", new { id = actualAuthorId });
+            }
+            catch (Exception e)
+            {
+                ViewBag.result = title + " " + actualAuthorId + e;
+                return RedirectToAction("Show", "Authors", new { id = actualAuthorId });
+            }
+        }
+
+        public ActionResult Delete(int bookId, int authorId)
+        {
+            var books = context.Set<Book>();
+            books.Remove(new Book { BookId = bookId });
 
             try
             {
                 context.SaveChanges();
-                return "Wszystko jest ok, dodano do bazy " + result;
+                return RedirectToAction("Show", "Authors", new { id = authorId });
             }
             catch (Exception e)
             {
-                result = "";
-                return "cos poszlo nie tak" + e + result;
+                return RedirectToAction("Show", "Authors", new { id = authorId });
             }
+        }
+
+        [HttpPost]
+        public ActionResult Update(int bookId, string title, int authorId)
+        {
+            var books = context.Set<Book>();
+            books.Update(new Book { BookId = bookId, Title = title, AuthorId = authorId });
+            // TODO: dodać obsugę blędów
+            try
+            {
+                context.SaveChanges();
+                return RedirectToAction("Show", "Authors", new { id = authorId });
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Show", "Authors", new { id = authorId });
+            }
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var query = context.Books
+            .Where(b => b.BookId == id)
+            .Select(b => new Book() { BookId = b.BookId, Title = b.Title, AuthorId = b.AuthorId })
+            .FirstOrDefault();
+
+            var query2 = (from b in context.Books
+            join a in context.Authors on b.AuthorId equals a.AuthorId
+            where b.BookId == id
+            select new AuthorsBooksViewModel() 
+            { 
+                Authors = a, 
+                Books = b
+            }).FirstOrDefault();
+
+            // TODO: ten zapis się powiela, zrobić klase do wyswietlania wszystkich autorow
+            var allAuthors = (from a in context.Authors select new Author {AuthorId = a.AuthorId, FirstName = a.FirstName, LastName = a.LastName }).ToArray();
+            ViewBag.Authors = allAuthors;
+
+            return View(query2);
         }
 
     }

@@ -29,3 +29,4 @@ D:\programowanie\net Core apki\dotnetCoreMVC\obj\Debug\netcoreapp2.2\dotnetCoreM
 D:\programowanie\net Core apki\dotnetCoreMVC\obj\Debug\netcoreapp2.2\dotnetCoreMVC.pdb
 D:\programowanie\net Core apki\dotnetCoreMVC\obj\Debug\netcoreapp2.2\dotnetCoreMVC.csproj.CopyComplete
 D:\programowanie\net Core apki\dotnetCoreMVC\obj\Debug\netcoreapp2.2\Razor\Views\Authors\Show.g.cshtml.cs
+D:\programowanie\net Core apki\dotnetCoreMVC\obj\Debug\netcoreapp2.2\Razor\Views\Books\Edit.g.cshtml.cs

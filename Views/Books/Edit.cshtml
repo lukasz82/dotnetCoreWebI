@@ -1,0 +1,24 @@
+@using dotnetCoreMVC
+@model dotnetCoreMVC.Models.AuthorsBooksViewModel
+Edycja danych książki
+
+<form asp-controller="Books" asp-action="Update" method="post">
+    <input type="hidden" class="form-control" name="bookId" value=@Model.Books.BookId ><br>
+    <label for="title">Tytuł</label>
+    <input type="text" class="form-control" name="title" value="@Model.Books.Title" required><br>
+    <label for="title">Autor</label>
+
+    <select class="form-control" name="authorId">
+        <option value="@Model.Authors.AuthorId" selected>@Model.Authors.FirstName @Model.Authors.LastName</option>
+        @foreach (var item in ViewBag.Authors)
+        {
+            if (item.AuthorId != Model.Authors.AuthorId)
+            {
+                <option value="@item.AuthorId">@item.FirstName @item.LastName</option>
+            }
+        }
+    </select>
+    <br /><br />
+    <button type="submit" class="btn btn-default">Akceptuj</button>
+</form>
+<br /><br />
