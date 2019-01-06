@@ -1,0 +1,11 @@
+@using dotnetCoreMVC
+@model IEnumerable<dynamic>
+ArrayTest
+
+@{
+    foreach (dynamic item in Model)
+    {
+        @item;
+    }
+}
+<br /><br />
