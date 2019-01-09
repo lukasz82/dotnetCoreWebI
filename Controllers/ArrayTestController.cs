@@ -15,18 +15,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace dotnetCoreMVC.Controllers
 {
+    
     public class ArrayTest : Controller
     {
         EFCoreWebDemoContext context = new EFCoreWebDemoContext();
 
-        public ActionResult Show(int id)
+        [HttpGet]
+        public JsonResult ReturnJsonTest(int id)
         {
 
-            var allAuthors = (from a in context.Authors select new Author {AuthorId = a.AuthorId, FirstName = a.FirstName, LastName = a.LastName }).ToArray();
-            ViewBag.Authors = allAuthors;
-            ViewBag.actualAuthorId = id;
-
-            dynamic query = from a in context.Authors
+            var query = from a in context.Authors
             join b in context.Books on a.AuthorId equals b.AuthorId
             where a.AuthorId == id
             select new
@@ -36,8 +34,13 @@ namespace dotnetCoreMVC.Controllers
                 LastName = a.LastName, 
                 Title = b.Title 
             };
-
-            return View(query);
+            return Json(query);
         }
+
+        public ActionResult Show()
+        {
+            return View();
+        }
+        
     }
 }

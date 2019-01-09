@@ -1,11 +1,17 @@
 @using dotnetCoreMVC
-@model IEnumerable<dynamic>
-ArrayTest
-
-@{
-    foreach (dynamic item in Model)
+<script src="/lib/jquery/dist/jquery.min.js"></script>
+<div id="resultAjax"></div>
+<script>
+    var result = "";
+    $.get('/ReturnJsonTest/1').done(function(query) 
     {
-        @item;
-    }
-}
+        console.log(query);
+        for (var i = 0; i < query.length ; i++)
+        {
+            result = result + query[i].firstName + " " + query[i].lastName + " - " + query[i].title + "<br />";
+        }
+        $("#resultAjax").html(result);
+    });
+</script>
+
 <br /><br />
