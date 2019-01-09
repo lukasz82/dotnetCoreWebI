@@ -9,6 +9,7 @@ using System.Collections;
 using System.Collections.Specialized;
 using System.Data;
 
+
 using Microsoft.EntityFrameworkCore;
 
 namespace dotnetCoreMVC.Controllers
@@ -68,25 +69,43 @@ namespace dotnetCoreMVC.Controllers
                 return RedirectToAction("Show", "Authors", new { id = authorId });
             }
         }
-
         public ActionResult Edit(int id)
         {
 
             var query = (from b in context.Books
-            join a in context.Authors on b.AuthorId equals a.AuthorId
-            where b.BookId == id
-            select new AuthorsBooksViewModel() 
-            { 
-                Authors = a, 
-                Books = b
-            }).FirstOrDefault();
+                         join a in context.Authors on b.AuthorId equals a.AuthorId
+                         where b.BookId == id
+                         select new AuthorsBooksViewModel()
+                         {
+                             Authors = a,
+                             Books = b
+                         }).FirstOrDefault();
 
             // TODO: ten zapis się powiela, zrobić klase do wyswietlania wszystkich autorow
-            var allAuthors = (from a in context.Authors select new Author {AuthorId = a.AuthorId, FirstName = a.FirstName, LastName = a.LastName }).ToArray();
+            var allAuthors = (from a in context.Authors select new Author { AuthorId = a.AuthorId, FirstName = a.FirstName, LastName = a.LastName }).ToArray();
             ViewBag.Authors = allAuthors;
 
             return View(query);
         }
 
+        public ActionResult SearchTemplate()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public JsonResult Search(string title)
+        {
+            if (title != null)
+            {
+                var query = from b in context.Books
+                            where EF.Functions.Like(b.Title, "%" + title + "%")
+                            orderby b.Title
+                            select b;
+                return Json(query);
+            }
+            var fullQuery = from b in context.Books orderby b.Title select b;
+            return Json(fullQuery);
+        }
     }
 }

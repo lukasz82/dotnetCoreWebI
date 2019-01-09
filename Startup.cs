@@ -86,6 +86,12 @@ namespace dotnetCoreMVC
 
             app.UseMvc(routes =>
             {
+                routes.MapRoute("default", "Books/SearchTemplate/",
+                    new { controller = "Books", action = "SearchTemplate" });
+            });
+
+            app.UseMvc(routes =>
+            {
                 routes.MapRoute("default", "ArrayTest/{id}",
                     new { controller = "ArrayTest", action = "Show" });
             });

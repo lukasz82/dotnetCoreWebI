@@ -8,6 +8,8 @@ using dotnetCoreMVC.Models;
 using System.Collections;
 using System.Collections.Specialized;
 using System.Data;
+using System.Dynamic;
+using Microsoft.AspNetCore.Routing;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -24,7 +26,7 @@ namespace dotnetCoreMVC.Controllers
             ViewBag.Authors = allAuthors;
             ViewBag.actualAuthorId = id;
 
-            dynamic query = (from a in context.Authors
+            dynamic query = from a in context.Authors
             join b in context.Books on a.AuthorId equals b.AuthorId
             where a.AuthorId == id
             select new
@@ -33,10 +35,9 @@ namespace dotnetCoreMVC.Controllers
                 FirstName = a.FirstName, 
                 LastName = a.LastName, 
                 Title = b.Title 
-            }).AsEnumerable().Select(a => a.FirstName);
+            };
 
             return View(query);
         }
-
     }
 }
