@@ -14,39 +14,7 @@ namespace dotnetCoreMVC.Controllers
     {
         public IActionResult Index()
         {
-            List<Mails> mails = new List<Mails>();
-            string smg = "";
-            for (int i = 0; i < 10; i++)
-            {
-                smg = "Wiadomosc nr : " + i.ToString();
-                mails.Add(new Mails() {mailId=i, message=smg});
-            }
-
-            List<Person> persons = new List<Person>();
-            for (int i = 0; i < 20; i++)
-            {
-                smg = i.ToString();
-                persons.Add(new Person() {name = "Osoba nr " + smg,surname = "Nazwisko nr" + smg, personId = i});
-            }
-
-            EFCoreWebDemoContext context = new EFCoreWebDemoContext();
-            var db = context.Authors.ToList();
-            
-            var query = (from a in context.Authors 
-                        join b in context.Books on a.AuthorId equals b.AuthorId
-                        where a.AuthorId == 1
-                        select new ViewModelAll
-                        {
-                            FirstName = a.FirstName,
-                            LastName = a.LastName, 
-                            AuthorId = a.AuthorId,
-                            Title = b.Title
-                        }).ToList();
-
-            List<ReturnList> res = new List<ReturnList>();
-            res.Add(new ReturnList {emailList = mails, personList = persons, authors = db, ViewModelAll = query});
-
-            return View(res);
+            return View();
         }
 
         public IActionResult Privacy()
